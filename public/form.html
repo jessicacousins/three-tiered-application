@@ -1,0 +1,261 @@
+<!-- ! Run Server in the terminal: `node form.html` and open in Browser at: http://localhost:3000/form.html  -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+    crossorigin="anonymous"
+  />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/superagent/3.8.3/superagent.min.js"></script>
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+  <body>
+
+    <!-- ********** NavBar here ********* -->
+    <nav class="navbar fixed-top">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Coding Docs</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasNavbar"
+          aria-controls="offcanvasNavbar"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div
+          class="offcanvas offcanvas-end"
+          tabindex="-1"
+          id="offcanvasNavbar"
+          aria-labelledby="offcanvasNavbarLabel"
+        >
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
+              Coding Docs
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="offcanvas"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="offcanvas-body">
+            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Docs</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  More Info
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a class="dropdown-item" href="#">Outside Resources</a>
+                  </li>
+                  <li><a class="dropdown-item" href="#">GitHub</a></li>
+                  <li><a class="dropdown-item" href="#">Discord Support</a></li>
+                   <li><a class="dropdown-item" href="#">Community</a></li>
+              </li>
+                </ul>
+            </ul>
+            <form class="d-flex mt-3" role="search">
+              <input
+                class="form-control me-2"
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+              />
+              <button class="btn btn-outline-success" type="submit">
+                Search
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ********** Form Card here ********* -->
+    <h1> <span class="firstLetter">D</span>ata <span class="firstLetter">C</span>ollection</h1>
+    <main role="main" class="container">
+         <div class="d-flex justify-content-center">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card" style="width: 30rem">
+            <div class="card-header" style="text-align: center">Enter New</div>
+            <div class="card-body">
+              <form>
+                <div class="form-group">
+                  <label for="id">Id</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    id="id"
+                    placeholder="id"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="title">Title</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    id="title"
+                    placeholder="title"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="published">Published</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    id="published"
+                    placeholder="published"
+                    required
+                  />
+                </div>
+                <button type="submit" class="btn btnSubmit" onclick="post()">Submit</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      <!-- ********** All Data Card here ********* -->
+        <div class="col-md-6">
+          <div class="card" style="width: 30rem">
+            <div class="card-header" style="text-align: center">All Data</div>
+            <div class="card-body">
+              <div id="results" class="container">
+                <button
+                  id="showAll_btn"
+                  type="button"
+                  class="btn btnShowAll"
+                  onclick="data()"
+                >
+                  Show All Data
+                </button>
+                <button
+                  id="deleteAll_btn"
+                  type="button"
+                  class="btn btnDeleteAll"
+                  onclick="deleteAll()"
+                >
+                  Delete All Data
+                </button>
+                <!-- <div class="spinner-border spinnerArea" >
+                  <span class="visually-hidden">Loading...</span>
+                </div> -->
+                <hr style="background-color: white" />
+                <h3 class="mt-4"  role="status">Results:</h3>
+                <div class="mt-1 dataResults" id="status"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </main>
+      <div>
+    </main>
+   <div class="container ">
+     <footer class="footerArea" >Terms & Services | Support | Careers | @CopyRight 2023 </footer>
+   </div>
+  </body>
+  <script>
+    function post() {
+      var id = document.getElementById("id").value;
+      var title = document.getElementById("title").value;
+      var published = document.getElementById("published").value;
+      var url = `/posts/${title}/${id}/${published}`;
+
+      superagent.get(url).end(function (err, res) {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log(res);
+          document.getElementById("id").value = "";
+        document.getElementById("title").value = "";
+        document.getElementById("published").value = "";
+
+          data();
+        }
+      });
+    }
+
+    function data() {
+      var status = document.getElementById("status");
+    //   var spinner = document.querySelector(".spinner-border");
+      var url = "/data";
+
+    //   spinner.style.display = "inline-block";
+
+      superagent.get(url).end(function (err, res) {
+
+        // spinner.style.display = "none";
+        if (err) {
+          console.log(err);
+          status.innerHTML = "A server error occurred.";
+        } else {
+          console.log(res);
+          const ul = document.createElement("ul");
+          ul.setAttribute("style", "padding: 0; margin: 0;");
+          ul.setAttribute("id", "posts");
+          if (res.body.length === 0) status.innerHTML = "No records to show";
+          else {
+            for (i = 0; i <= res.body.length - 1; i++) {
+              const li = document.createElement("li");
+
+              li.innerHTML =
+                res.body[i].id +
+                " - " +
+                res.body[i].title +
+                " - " +
+                res.body[i].published;
+              li.setAttribute("style", "display: block;");
+
+              ul.appendChild(li);
+            }
+            if (status.hasChildNodes()) {
+              status.removeChild(status.childNodes[0]);
+            }
+            status.appendChild(ul);
+          }
+        }
+        
+      });
+    }
+
+    function deleteAll() {
+      superagent.get("/deleteAll").end(function (err, res) {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log(res);
+          const status = document.getElementById("status");
+          status.innerHTML = res.body.message;
+        }
+      });
+    }
+  </script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+    crossorigin="anonymous"
+  ></script>
+</html>

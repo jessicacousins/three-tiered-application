@@ -1,0 +1,165 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Borel&family=Roboto+Mono&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #111;
+  font-family: "Roboto Mono", monospace;
+}
+
+.navbar {
+  background: black;
+  border-radius: 0px 0px 10px 10px;
+}
+
+.navbar-brand {
+  color: #39ff14;
+  font-size: 1.6em;
+  font-family: "Borel", cursive;
+}
+.navbar-brand:hover {
+  color: rgb(255, 0, 217);
+}
+
+.offcanvas {
+  background-color: #111;
+  color: #39ff14;
+}
+
+.dropdown-toggle {
+  color: rgb(255, 0, 217);
+}
+
+.nav-link {
+  color: #39ff14;
+}
+.nav-link:hover {
+  color: rgb(255, 0, 217);
+}
+
+.dropdown-menu {
+  background-color: #000;
+}
+
+.dropdown-item {
+  background-color: #000;
+  color: #39ff14;
+}
+.dropdown-item:hover {
+  background-color: #000;
+  color: rgb(255, 0, 217);
+}
+
+h1 {
+  /* color: #39ff14; */
+  color: #808080;
+  font-size: 5em;
+  margin-top: 70px;
+  margin-bottom: 40px;
+  text-align: center;
+  letter-spacing: 5px;
+}
+
+.firstLetter {
+  color: #39ff14;
+}
+
+.card {
+  background-color: #000;
+  color: #39ff14;
+  border-radius: 17px;
+  margin-bottom: 20px;
+  margin-right: 20px;
+  margin-left: 20px;
+  box-shadow: 0px 0px 10px 10px rgba(0, 0, 0, 0.2);
+}
+
+.card-header {
+  font-size: 2em;
+}
+
+.btnShowAll,
+.btnDeleteAll {
+  display: inline-block;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  margin: 10px;
+  background-color: #39ff14;
+}
+
+.btn:hover {
+  background-color: rgb(255, 0, 217);
+  color: white;
+}
+
+.btnShowAll {
+  color: black;
+  margin-right: 48px;
+  font-weight: bold;
+}
+
+.btnDeleteAll {
+  background-color: rgb(255, 213, 0);
+  font-weight: bold;
+}
+
+.btnSubmit {
+  background-color: #39ff14;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  margin-left: 40%;
+  letter-spacing: 1.5px;
+}
+
+.form-group {
+  font-size: 1.1em;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+}
+
+input {
+  margin-top: 10px;
+}
+
+.form-control {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  background: #cccaca;
+}
+
+.dataResults {
+  color: rgb(255, 0, 217);
+  display: flex;
+}
+
+.spinnerArea {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 42%;
+  margin-top: 15px;
+  margin-bottom: 20px;
+  color: rgb(255, 0, 217);
+}
+
+.footerArea {
+  color: #808080;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-top: 85px;
+}
